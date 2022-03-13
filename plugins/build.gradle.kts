@@ -1,15 +1,18 @@
+@Suppress("DSL_SCOPE_VIOLATION")
 plugins {
+    alias(catalogPlugins.plugins.pluginPublish)
     id("gradle-plugin-convention")
-    id("com.gradle.plugin-publish") version ("0.15.0")
+    id("maven-publish-config")
+    id("nexus-config")
 }
 
-group = "com.merseyside.mobile"
-version = "1.0.0"
+group = Metadata.groupId
+version = Metadata.version
 
 dependencies {
     implementation(gradleKotlinDsl())
-    compileOnly(libs.kotlinGradlePlugin)
-    compileOnly(libs.androidGradlePlugin)
+    compileOnly(catalogGradle.kotlin.gradle)
+    compileOnly(catalogGradle.android.gradle)
 }
 
 gradlePlugin {

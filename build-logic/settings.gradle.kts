@@ -1,8 +1,5 @@
 enableFeaturePreview("VERSION_CATALOGS")
 
-includeBuild("build-logic")
-includeBuild("plugins")
-
 dependencyResolutionManagement {
     repositories {
         mavenCentral()
@@ -18,14 +15,9 @@ dependencyResolutionManagement {
                 from("$group:catalog-version-android:$catalogVersions")
             }
 
-            val catalogPlugins by creating {
-                from("$group:catalog-version-plugins:$catalogVersions")
+            val catalogGradle by creating {
+                from("$group:catalog-version-gradle:$catalogVersions")
             }
         }
     }
 }
-
-include(":sample")
-
-rootProject.name = "mersey-gradle-plugins"
-

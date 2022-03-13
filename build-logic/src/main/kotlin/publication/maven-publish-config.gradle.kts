@@ -11,9 +11,9 @@ version = Metadata.version
 publishing {
     publications.withType<MavenPublication>().all {
         pom {
-            name.set("Mersey Gradle Catalog")
-            description.set("Version Catalog from Gradle 7.0")
-            url.set("https://github.com/Merseyside/mersey-version_catalog")
+            name.set("Mersey Gradle Plugins")
+            description.set("Optimization gradle convention plugins")
+            url.set("https://github.com/Merseyside/mersey-gradle-plugin")
 
             licenses {
                 license {
@@ -29,7 +29,9 @@ publishing {
                 }
             }
             scm {
-                url.set("https://github.com/Merseyside/mersey-version-catalog")
+                connection.set("scm:git:ssh://github.com/Merseyside/mersey-gradle-plugins.git")
+                developerConnection.set("scm:git:ssh://github.com/Merseyside/mersey-gradle-plugins.git")
+                url.set("https://github.com/Merseyside/mersey-gradle-plugins")
             }
         }
     }

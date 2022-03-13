@@ -10,26 +10,30 @@ import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.create
 import org.gradle.kotlin.dsl.findByType
+import java.io.File
 
+@Suppress("UnstableApiUsage")
 class AndroidConventionPlugin : Plugin<Project> {
 
-    override fun apply(target: Project) {
-        if (!target.pluginManager.hasAndroidPlugins()) {
+    override fun apply(project: Project) {
+
+        if (!project.pluginManager.hasAndroidPlugins()) {
             throw ExceptionInInitializerError("No id from ${androidIds.joinToString(", ")} found!")
         }
 
-        val androidLibraryExtension = target.extensions.findByType(LibraryExtension::class)
+        val androidLibraryExtension = project.extensions.findByType(LibraryExtension::class)
 
-        val androidConventionExtension = target.extensions.create(
+        val androidConventionExtension = project.extensions.create(
             "androidConvention",
             AndroidConventionPluginExtension::class
         )
 
-        target.afterEvaluate {
-            if (androidLibraryExtension != null) {
-                setCompatibilityTarget(androidLibraryExtension, androidConventionExtension)
-                setSourceSets(androidLibraryExtension, androidConventionExtension)
-                excludeMetadata(androidLibraryExtension, androidConventionExtension)
+        if (androidLibraryExtension != null) {
+            setCompatibilityTarget(androidLibraryExtension, androidConventionExtension)
+            excludeMetadata(androidLibraryExtension, androidConventionExtension)
+
+            project.afterEvaluate {
+                setSourceSets(project, androidLibraryExtension, androidConventionExtension)
             }
         }
     }
@@ -50,18 +54,26 @@ class AndroidConventionPlugin : Plugin<Project> {
     }
 
     private fun setSourceSets(
+        project: Project,
         androidLibraryExtension: LibraryExtension,
         androidConventionPluginExtension: AndroidConventionPluginExtension
     ) {
         with(androidConventionPluginExtension) {
             androidLibraryExtension.sourceSets.apply {
-                getByName("main") {
-                    printLog(
-                        "Set ${sourceSets.joinToString(",\n")}" +
-                                "\nto main source set"
-                    )
+                if (isNotEmpty()) {
+                    getByName("main") {
+                        printLog(
+                            "Set ${sourceSets.joinToString(",\n")}" +
+                                    "\nto main source set"
+                        )
 
-                    it.res.setSrcDirs(sourceSets)
+                        it.res.setSrcDirs(sourceSets)
+                    }
+
+                    createSourceSetFolders(
+                        project,
+                        androidConventionPluginExtension
+                    )
                 }
             }
         }
@@ -80,6 +92,30 @@ class AndroidConventionPlugin : Plugin<Project> {
                 )
             }
         }
+    }
+
+    private fun createSourceSetFolders(
+        project: Project,
+        androidConventionPluginExtension: AndroidConventionPluginExtension
+    ) {
+            val sourceSetFiles = androidConventionPluginExtension.sourceSets.map { sourceSet ->
+                project.file(sourceSet)
+            }
+
+            sourceSetFiles.forEach { file ->
+                file as File
+                val path = file.absolutePath
+                val newFile = if (file.parent.contains("layouts")) {
+                    File("$path/layout")
+                } else {
+                    file
+                }
+
+                if (!newFile.exists()) {
+                    println("Create ${file.absoluteFile} folder")
+                    newFile.mkdirs()
+                }
+            }
     }
 }
 

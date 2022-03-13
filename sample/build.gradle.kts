@@ -1,3 +1,4 @@
+@Suppress("DSL_SCOPE_VIOLATION")
 plugins {
     id("com.android.library")
     id("kotlin-android")
@@ -7,11 +8,16 @@ plugins {
 
 android {
     compileSdk = 31
+    defaultConfig {
+        minSdk = 21
+        targetSdk = 31
+    }
 }
 
 androidConvention {
     javaVersion = JavaVersion.VERSION_11
     excludeMetadata = true
+    debug = true
 }
 
 kotlinConvention {
@@ -19,6 +25,10 @@ kotlinConvention {
 }
 
 dependencies {
+
+    with(catalogPlugins.plugins) {
+        androidLibrary.id()
+    }
     with(androidLibs) {
         implementation(appCompat)
         implementation(material)

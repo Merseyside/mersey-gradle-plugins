@@ -6,7 +6,7 @@ buildscript {
     }
 
     dependencies {
-        classpath("com.merseyside.mobile:plugins")
+        classpath("io.github.merseyside:plugins")
         classpath(":build-logic")
     }
 }
@@ -23,3 +23,4 @@ tasks.register("clean", Delete::class).configure {
     group = "build"
     delete(rootProject.buildDir)
 }
+
