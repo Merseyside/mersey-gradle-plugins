@@ -18,12 +18,12 @@ dependencies {
 gradlePlugin {
     plugins {
         create("kotlin-convention") {
-            id = "com.merseyside.mobile.kotlin-convention"
+            id = "${Metadata.groupId}.kotlin-convention"
             implementationClass = "com.merseyside.gradle.plugin.KotlinConventionPlugin"
         }
 
         create("android-convention") {
-            id = "com.merseyside.mobile.android-convention"
+            id = "${Metadata.groupId}.android-convention"
             implementationClass = "com.merseyside.gradle.plugin.AndroidConventionPlugin"
         }
     }
