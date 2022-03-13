@@ -12,11 +12,16 @@ android {
         minSdk = 21
         targetSdk = 31
     }
+
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_11
+        targetCompatibility = JavaVersion.VERSION_11
+    }
 }
 
 androidConvention {
-    javaVersion = JavaVersion.VERSION_11
-    excludeMetadata = true
+    //javaVersion = JavaVersion.VERSION_11
+    //excludeMetadata = true
     debug = true
 }
 
@@ -25,10 +30,6 @@ kotlinConvention {
 }
 
 dependencies {
-
-    with(catalogPlugins.plugins) {
-        androidLibrary.id()
-    }
     with(androidLibs) {
         implementation(appCompat)
         implementation(material)
