@@ -1,6 +1,6 @@
 package com.merseyside.gradle
 
-interface LoggerExtension {
+internal interface LoggerExtension {
     var debug: Boolean
     val TAG: String
 }

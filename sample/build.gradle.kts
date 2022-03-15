@@ -12,16 +12,10 @@ android {
         minSdk = 21
         targetSdk = 31
     }
-
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
-    }
 }
 
 androidConvention {
-    //javaVersion = JavaVersion.VERSION_11
-    //excludeMetadata = true
+    setSourceSets = true
     debug = true
 }
 

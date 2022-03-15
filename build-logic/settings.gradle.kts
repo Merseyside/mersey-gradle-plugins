@@ -1,5 +1,14 @@
 enableFeaturePreview("VERSION_CATALOGS")
 
+pluginManagement {
+    repositories {
+        mavenCentral()
+        google()
+
+        gradlePluginPortal()
+    }
+}
+
 dependencyResolutionManagement {
     repositories {
         mavenCentral()
@@ -8,7 +17,7 @@ dependencyResolutionManagement {
     }
 
     val group = "io.github.merseyside"
-    val catalogVersions = "1.3.3"
+    val catalogVersions = "1.3.4"
     versionCatalogs {
         val androidLibs by creating {
             from("$group:catalog-version-android:$catalogVersions")
