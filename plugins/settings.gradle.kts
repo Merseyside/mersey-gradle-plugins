@@ -7,6 +7,8 @@ pluginManagement {
 
         gradlePluginPortal()
     }
+
+    includeBuild("../build-logic")
 }
 
 dependencyResolutionManagement {
