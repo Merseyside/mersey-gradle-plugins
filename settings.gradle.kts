@@ -1,7 +1,19 @@
-enableFeaturePreview("VERSION_CATALOGS")
+pluginManagement {
+    repositories {
+        mavenCentral()
+        google()
+        gradlePluginPortal()
+    }
+    includeBuild("build-logic")
+    includeBuild("plugins")
+}
 
-includeBuild("build-logic")
-includeBuild("plugins")
+plugins {
+    // Activates ".id()" extension
+    id("buildscript-extensions")
+}
+
+enableFeaturePreview("VERSION_CATALOGS")
 
 dependencyResolutionManagement {
     repositories {

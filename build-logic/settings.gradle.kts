@@ -14,6 +14,7 @@ dependencyResolutionManagement {
         mavenCentral()
         mavenLocal()
         google()
+        gradlePluginPortal()
     }
 
     val group = "io.github.merseyside"
