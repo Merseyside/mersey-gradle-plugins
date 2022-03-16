@@ -8,6 +8,7 @@ import com.merseyside.gradle.defaultSourceSets
 import org.gradle.api.JavaVersion
 import org.gradle.api.Plugin
 import org.gradle.api.Project
+import org.gradle.api.plugins.JavaPluginExtension
 import org.gradle.kotlin.dsl.create
 import org.gradle.kotlin.dsl.findByType
 import java.io.File
@@ -29,27 +30,13 @@ class AndroidConventionPlugin : Plugin<Project> {
         )
 
         if (androidLibraryExtension != null) {
-            setCompatibilityTarget(androidLibraryExtension, androidConventionExtension)
-            excludeMetadata(androidLibraryExtension, androidConventionExtension)
-
+            //setCompatibilityTarget(androidLibraryExtension, androidConventionExtension)
+            //excludeMetadata(androidLibraryExtension, androidConventionExtension)
             project.afterEvaluate {
+                //setCompatibilityTarget(androidLibraryExtension, androidConventionExtension)
+                //excludeMetadata(androidLibraryExtension, androidConventionExtension)
                 setSourceSets(project, androidLibraryExtension, androidConventionExtension)
             }
-        }
-    }
-
-    private fun setCompatibilityTarget(
-        androidLibraryExtension: LibraryExtension,
-        androidConventionPluginExtension: AndroidConventionPluginExtension
-    ) {
-        androidLibraryExtension.compileOptions.apply {
-            androidConventionPluginExtension.printLog(
-                "Set " +
-                        "${androidConventionPluginExtension.javaVersion} compatibility target"
-            )
-
-            sourceCompatibility = androidConventionPluginExtension.javaVersion
-            targetCompatibility = androidConventionPluginExtension.javaVersion
         }
     }
 
@@ -58,73 +45,86 @@ class AndroidConventionPlugin : Plugin<Project> {
         androidLibraryExtension: LibraryExtension,
         androidConventionPluginExtension: AndroidConventionPluginExtension
     ) {
-        with(androidConventionPluginExtension) {
-            androidLibraryExtension.sourceSets.apply {
-                if (isNotEmpty()) {
-                    getByName("main") {
-                        printLog(
-                            "Set ${sourceSets.joinToString(",\n")}" +
-                                    "\nto main source set"
+        if (androidConventionPluginExtension.setSourceSets) {
+            with(androidConventionPluginExtension) {
+                androidLibraryExtension.sourceSets.apply {
+                    if (isNotEmpty()) {
+                        getByName("main") {
+                            it.res.setSrcDirs(mainSourceSets)
+                        }
+
+                        createSourceSetFolders(
+                            project,
+                            androidConventionPluginExtension
                         )
-
-                        it.res.setSrcDirs(sourceSets)
                     }
-
-                    createSourceSetFolders(
-                        project,
-                        androidConventionPluginExtension
-                    )
                 }
             }
         }
     }
 
-    private fun excludeMetadata(
-        androidLibraryExtension: LibraryExtension,
-        androidConventionPluginExtension: AndroidConventionPluginExtension
-    ) {
-        with(androidConventionPluginExtension) {
-            if (excludeMetadata) {
-                printLog("\nExclude ${excludeMetadataSet.joinToString(",\n")}\nmetadata")
-
-                androidLibraryExtension.packagingOptions.resources.excludes.addAll(
-                    excludeMetadataSet
-                )
-            }
-        }
-    }
+//    private fun setCompatibilityTarget(
+//        androidLibraryExtension: LibraryExtension,
+//        androidConventionPluginExtension: AndroidConventionPluginExtension
+//    ) {
+//        androidLibraryExtension.compileOptions.apply {
+//            androidConventionPluginExtension.printLog(
+//                "Set " +
+//                        "${androidConventionPluginExtension.javaVersion} compatibility target"
+//            )
+//
+//            sourceCompatibility = androidConventionPluginExtension.javaVersion
+//            targetCompatibility = androidConventionPluginExtension.javaVersion
+//        }
+//    }
+//
+//    private fun excludeMetadata(
+//        androidLibraryExtension: LibraryExtension,
+//        androidConventionPluginExtension: AndroidConventionPluginExtension
+//    ) {
+//        with(androidConventionPluginExtension) {
+//            if (excludeMetadata) {
+//                printLog("\nExclude ${excludeMetadataSet.joinToString(",\n")}\nmetadata")
+//
+//                androidLibraryExtension.packagingOptions.resources.excludes.addAll(
+//                    excludeMetadataSet
+//                )
+//            }
+//        }
+//    }
 
     private fun createSourceSetFolders(
         project: Project,
         androidConventionPluginExtension: AndroidConventionPluginExtension
     ) {
-            val sourceSetFiles = androidConventionPluginExtension.sourceSets.map { sourceSet ->
-                project.file(sourceSet)
+        val sourceSetFiles = androidConventionPluginExtension.mainSourceSets.map { sourceSet ->
+            project.file(sourceSet)
+        }
+
+        sourceSetFiles.forEach { file ->
+            file as File
+            val path = file.absolutePath
+            val newFile = if (file.parent.contains("layouts")) {
+                File("$path/layout")
+            } else {
+                file
             }
 
-            sourceSetFiles.forEach { file ->
-                file as File
-                val path = file.absolutePath
-                val newFile = if (file.parent.contains("layouts")) {
-                    File("$path/layout")
-                } else {
-                    file
-                }
-
-                if (!newFile.exists()) {
-                    println("Create ${file.absoluteFile} folder")
-                    newFile.mkdirs()
-                }
+            if (!newFile.exists()) {
+                project.logger.info("Create ${file.absoluteFile} folder")
+                newFile.mkdirs()
             }
+        }
     }
 }
 
 open class AndroidConventionPluginExtension : LoggerExtension {
-    var javaVersion: JavaVersion = JavaVersion.VERSION_11
-    var sourceSets: MutableSet<String> = defaultSourceSets
-    var excludeMetadata: Boolean = false
-    var excludeMetadataSet: MutableSet<String> = defaultMetadata
+    //var javaVersion: JavaVersion = JavaVersion.VERSION_11
+    var setSourceSets: Boolean = false
+    var mainSourceSets: MutableSet<String> = defaultSourceSets
+    //var excludeMetadata: Boolean = false
+    //var excludeMetadataSet: MutableSet<String> = defaultMetadata
 
-    override var debug: Boolean = false
+    override var debug: Boolean = true
     override val TAG: String = "AndroidConventionPlugin"
 }

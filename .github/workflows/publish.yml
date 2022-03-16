@@ -17,8 +17,8 @@ jobs:
         with:
           java-version: 1.11
 
-      - name: Build and publish to mavenCentral
-        run: ./gradlew publish
+      - name: Publish plugin
+        run: ./gradlew -p plugins publishPlugins -Pgradle.publish.key=${{ secrets.GRADLE_PLUGIN_PORTAL_KEY }} -Pgradle.publish.secret=${{ secrets.GRADLE_PLUGIN_PORTAL_SECRET }}
         env:
           OSSRH_USERNAME: ${{ secrets.OSSRH_USERNAME }}
           OSSRH_PASSWORD: ${{ secrets.OSSRH_PASSWORD }}

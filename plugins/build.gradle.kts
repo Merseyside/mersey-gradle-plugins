@@ -18,13 +18,36 @@ dependencies {
 gradlePlugin {
     plugins {
         create("kotlin-convention") {
-            id = "com.merseyside.mobile.kotlin-convention"
+            id = "${Metadata.groupId}.kotlin-convention"
             implementationClass = "com.merseyside.gradle.plugin.KotlinConventionPlugin"
         }
 
         create("android-convention") {
-            id = "com.merseyside.mobile.android-convention"
+            id = "${Metadata.groupId}.android-convention"
             implementationClass = "com.merseyside.gradle.plugin.AndroidConventionPlugin"
         }
+    }
+}
+
+pluginBundle {
+    website = "https://github.com/Merseyside/mersey-gradle-plugins"
+    vcsUrl = "https://github.com/Merseyside/mersey-gradle-plugins"
+    description = "Plugin to optimize work with kotlin/android conventions and useful features"
+    tags = listOf("android", "mersey", "kotlin", "sourceSets")
+
+    plugins {
+        getByName("kotlin-convention") {
+            displayName = "Mersey kotlin convention plugin"
+        }
+
+        getByName("android-convention") {
+            displayName = "Mersey android convention plugin"
+        }
+    }
+
+    mavenCoordinates {
+        groupId = Metadata.groupId
+        artifactId = project.name
+        version = Metadata.version
     }
 }

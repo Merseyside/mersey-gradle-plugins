@@ -15,8 +15,7 @@ android {
 }
 
 androidConvention {
-    javaVersion = JavaVersion.VERSION_11
-    excludeMetadata = true
+    setSourceSets = true
     debug = true
 }
 
@@ -25,10 +24,6 @@ kotlinConvention {
 }
 
 dependencies {
-
-    with(catalogPlugins.plugins) {
-        androidLibrary.id()
-    }
     with(androidLibs) {
         implementation(appCompat)
         implementation(material)

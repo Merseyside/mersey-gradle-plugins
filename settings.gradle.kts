@@ -22,17 +22,15 @@ dependencyResolutionManagement {
         google()
     }
 
+    val group = "io.github.merseyside"
+    val catalogVersions = "1.3.4"
     versionCatalogs {
-        val group = "io.github.merseyside"
-        val catalogVersions = "1.3.3"
-        versionCatalogs {
-            val androidLibs by creating {
-                from("$group:catalog-version-android:$catalogVersions")
-            }
+        val androidLibs by creating {
+            from("$group:catalog-version-android:$catalogVersions")
+        }
 
-            val catalogPlugins by creating {
-                from("$group:catalog-version-plugins:$catalogVersions")
-            }
+        val catalogPlugins by creating {
+            from("$group:catalog-version-plugins:$catalogVersions")
         }
     }
 }
