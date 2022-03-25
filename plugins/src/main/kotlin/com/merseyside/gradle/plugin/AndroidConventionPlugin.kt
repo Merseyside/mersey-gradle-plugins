@@ -8,7 +8,6 @@ import com.merseyside.gradle.defaultSourceSets
 import org.gradle.api.JavaVersion
 import org.gradle.api.Plugin
 import org.gradle.api.Project
-import org.gradle.api.plugins.JavaPluginExtension
 import org.gradle.kotlin.dsl.create
 import org.gradle.kotlin.dsl.findByType
 import java.io.File
@@ -30,11 +29,9 @@ class AndroidConventionPlugin : Plugin<Project> {
         )
 
         if (androidLibraryExtension != null) {
-            //setCompatibilityTarget(androidLibraryExtension, androidConventionExtension)
-            //excludeMetadata(androidLibraryExtension, androidConventionExtension)
+            setCompatibilityTarget(androidLibraryExtension, androidConventionExtension)
+            excludeMetadata(androidLibraryExtension, androidConventionExtension)
             project.afterEvaluate {
-                //setCompatibilityTarget(androidLibraryExtension, androidConventionExtension)
-                //excludeMetadata(androidLibraryExtension, androidConventionExtension)
                 setSourceSets(project, androidLibraryExtension, androidConventionExtension)
             }
         }
@@ -63,35 +60,35 @@ class AndroidConventionPlugin : Plugin<Project> {
         }
     }
 
-//    private fun setCompatibilityTarget(
-//        androidLibraryExtension: LibraryExtension,
-//        androidConventionPluginExtension: AndroidConventionPluginExtension
-//    ) {
-//        androidLibraryExtension.compileOptions.apply {
-//            androidConventionPluginExtension.printLog(
-//                "Set " +
-//                        "${androidConventionPluginExtension.javaVersion} compatibility target"
-//            )
-//
-//            sourceCompatibility = androidConventionPluginExtension.javaVersion
-//            targetCompatibility = androidConventionPluginExtension.javaVersion
-//        }
-//    }
-//
-//    private fun excludeMetadata(
-//        androidLibraryExtension: LibraryExtension,
-//        androidConventionPluginExtension: AndroidConventionPluginExtension
-//    ) {
-//        with(androidConventionPluginExtension) {
-//            if (excludeMetadata) {
-//                printLog("\nExclude ${excludeMetadataSet.joinToString(",\n")}\nmetadata")
-//
-//                androidLibraryExtension.packagingOptions.resources.excludes.addAll(
-//                    excludeMetadataSet
-//                )
-//            }
-//        }
-//    }
+    private fun setCompatibilityTarget(
+        androidLibraryExtension: LibraryExtension,
+        androidConventionPluginExtension: AndroidConventionPluginExtension
+    ) {
+        androidLibraryExtension.compileOptions.apply {
+            androidConventionPluginExtension.printLog(
+                "Set " +
+                        "${androidConventionPluginExtension.javaVersion} compatibility target"
+            )
+
+            sourceCompatibility = androidConventionPluginExtension.javaVersion
+            targetCompatibility = androidConventionPluginExtension.javaVersion
+        }
+    }
+
+    private fun excludeMetadata(
+        androidLibraryExtension: LibraryExtension,
+        androidConventionPluginExtension: AndroidConventionPluginExtension
+    ) {
+        with(androidConventionPluginExtension) {
+            if (excludeMetadata) {
+                printLog("\nExclude ${excludeMetadataSet.joinToString(",\n")}\nmetadata")
+
+                androidLibraryExtension.packagingOptions.resources.excludes.addAll(
+                    excludeMetadataSet
+                )
+            }
+        }
+    }
 
     private fun createSourceSetFolders(
         project: Project,
@@ -119,11 +116,11 @@ class AndroidConventionPlugin : Plugin<Project> {
 }
 
 open class AndroidConventionPluginExtension : LoggerExtension {
-    //var javaVersion: JavaVersion = JavaVersion.VERSION_11
+    var javaVersion: JavaVersion = JavaVersion.VERSION_11
     var setSourceSets: Boolean = false
     var mainSourceSets: MutableSet<String> = defaultSourceSets
-    //var excludeMetadata: Boolean = false
-    //var excludeMetadataSet: MutableSet<String> = defaultMetadata
+    var excludeMetadata: Boolean = false
+    var excludeMetadataSet: MutableSet<String> = defaultMetadata
 
     override var debug: Boolean = true
     override val TAG: String = "AndroidConventionPlugin"

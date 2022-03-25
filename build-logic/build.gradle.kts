@@ -4,7 +4,6 @@ plugins {
 
 dependencies {
     with(catalogGradle) {
-        implementation(moko.mobileMultiplatform)
         implementation(kotlin.gradle)
         implementation(android.gradle)
         implementation(nexusPublish)

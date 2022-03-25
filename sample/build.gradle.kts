@@ -1,9 +1,12 @@
 @Suppress("DSL_SCOPE_VIOLATION")
 plugins {
-    id(catalogPlugins.plugins.androidLibrary.id())
-    id(catalogPlugins.plugins.kotlinAndroid.id())
-    id("com.merseyside.mobile.kotlin-convention")
-    id("com.merseyside.mobile.android-convention")
+    with(catalogPlugins.plugins) {
+        id(android.library.id())
+        id(kotlin.android.id())
+        id(mersey.kotlin.convention.id())
+        id(mersey.android.convention.id())
+        plugin(swiftPackage)
+    }
 }
 
 android {

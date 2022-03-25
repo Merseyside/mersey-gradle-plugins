@@ -11,6 +11,11 @@ pluginManagement {
     includeBuild("../build-logic")
 }
 
+plugins {
+    // Activates ".id()" extension
+    id("buildscript-extensions")
+}
+
 dependencyResolutionManagement {
     repositories {
         mavenCentral()
@@ -34,5 +39,3 @@ dependencyResolutionManagement {
         }
     }
 }
-
-includeBuild("../build-logic")

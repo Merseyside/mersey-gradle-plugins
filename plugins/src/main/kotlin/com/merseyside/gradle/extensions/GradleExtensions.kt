@@ -31,7 +31,7 @@ fun Project.isLocalKotlinExtLibrary(): Boolean =
 
 fun PluginDependenciesSpec.plugin(gradlePlugin: Provider<PluginDependency>): PluginDependencySpec {
     val spec = id(gradlePlugin.get().pluginId)
-    val version = gradlePlugin.get().version.preferredVersion
+    val version = gradlePlugin.get().version.requiredVersion
 
     with(version) {
         if (isNotEmpty()) {
