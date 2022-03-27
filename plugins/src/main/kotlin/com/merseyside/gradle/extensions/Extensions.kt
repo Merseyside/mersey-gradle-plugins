@@ -1,5 +1,7 @@
-package com.merseyside.gradle
+package com.merseyside.gradle.extensions
 
+import com.merseyside.gradle.androidIds
+import com.merseyside.gradle.kotlinIds
 import org.gradle.api.plugins.PluginManager
 
 internal fun PluginManager.hasKotlinPlugins(): Boolean {

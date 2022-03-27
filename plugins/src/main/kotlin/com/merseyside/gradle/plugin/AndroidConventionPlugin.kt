@@ -5,6 +5,7 @@ import com.merseyside.gradle.*
 import com.merseyside.gradle.androidIds
 import com.merseyside.gradle.defaultMetadata
 import com.merseyside.gradle.defaultSourceSets
+import com.merseyside.gradle.extensions.hasAndroidPlugins
 import org.gradle.api.JavaVersion
 import org.gradle.api.Plugin
 import org.gradle.api.Project

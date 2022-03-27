@@ -1,5 +1,6 @@
 @file:Suppress("UnstableApiUsage")
 
+import com.android.build.gradle.internal.cxx.configure.gradleLocalProperties
 import org.gradle.api.Project
 import org.gradle.api.provider.Provider
 import org.gradle.plugin.use.PluginDependenciesSpec
@@ -7,17 +8,30 @@ import org.gradle.plugin.use.PluginDependency
 import org.gradle.plugin.use.PluginDependencySpec
 
 inline fun <reified T> Project.findTypedProperty(propertyName: String): T {
-
     val stringProperty = findProperty(propertyName) as? String
 
     return stringProperty?.let {
-        when (T::class) {
-            Boolean::class -> stringProperty.toBoolean()
-            Int::class -> stringProperty.toInt()
-            Float::class -> stringProperty
-            else -> it
-        }
-    } as? T ?: throw Exception("Property $propertyName not found")
+        castProperty(it)
+    } ?: throw Exception("Property $propertyName not found")
+}
+
+inline fun <reified T> Project.findTypedLocalProperty(propertyName: String): T {
+    val stringProperty = gradleLocalProperties(rootDir)[propertyName] as? String
+
+    return stringProperty?.let {
+        castProperty(it)
+    } ?: throw Exception("Property $propertyName not found")
+}
+
+inline fun <reified T> castProperty(stringProperty: String): T {
+    val value = when (T::class) {
+        Boolean::class -> stringProperty.toBoolean()
+        Int::class -> stringProperty.toInt()
+        Float::class -> stringProperty.toFloat()
+        else -> stringProperty
+    }
+
+    return value as T
 }
 
 fun Project.isLocalDependencies(): Boolean =

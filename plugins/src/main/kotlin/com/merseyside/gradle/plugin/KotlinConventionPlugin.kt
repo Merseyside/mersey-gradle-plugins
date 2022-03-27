@@ -1,7 +1,7 @@
 package com.merseyside.gradle.plugin
 
 import com.merseyside.gradle.LoggerExtension
-import com.merseyside.gradle.hasKotlinPlugins
+import com.merseyside.gradle.extensions.hasKotlinPlugins
 import com.merseyside.gradle.kotlinIds
 import com.merseyside.gradle.printLog
 import org.gradle.api.JavaVersion
