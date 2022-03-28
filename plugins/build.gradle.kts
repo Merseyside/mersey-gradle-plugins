@@ -24,7 +24,7 @@ gradlePlugin {
 
         create("android-convention") {
             id = "${Metadata.groupId}.android-convention"
-            implementationClass = "com.merseyside.gradle.plugin.AndroidConventionPlugin"
+            implementationClass = "com.merseyside.gradle.plugin.android.AndroidConventionPlugin"
         }
     }
 }

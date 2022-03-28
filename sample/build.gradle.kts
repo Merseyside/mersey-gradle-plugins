@@ -1,10 +1,12 @@
+import com.merseyside.gradle.plugin.android.Theme.*
+
 @Suppress("DSL_SCOPE_VIOLATION")
 plugins {
     with(catalogPlugins.plugins) {
-        id(android.library.id())
-        id(kotlin.android.id())
-        id(mersey.kotlin.convention.id())
-        id(mersey.android.convention.id())
+        plugin(android.application)
+        plugin(kotlin.android)
+        plugin(mersey.kotlin.convention)
+        plugin(mersey.android.convention)
         plugin(swiftPackage)
     }
 }
@@ -18,7 +20,15 @@ android {
 }
 
 androidConvention {
-    setSourceSets = true
+    sourceSets {
+        setSourceSets = true
+
+        configureThemes {
+            name = "Theme.App"
+            themes = listOf(LIGHT, NIGHT)
+        }
+    }
+
     debug = true
 }
 
