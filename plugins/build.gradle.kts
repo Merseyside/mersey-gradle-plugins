@@ -4,15 +4,31 @@ plugins {
     id("gradle-plugin-extension")
     id("maven-publish-config")
     id("nexus-config")
+    id("java-gradle-plugin")
 }
 
 group = "io.github.merseyside"
-version = catalogPlugins.versions.merseyPlugins.get()
+version = catalogPlugins.versions.mersey.plugins.get()
 
 dependencies {
     implementation(gradleKotlinDsl())
     compileOnly(catalogGradle.kotlin.gradle)
     compileOnly(catalogGradle.android.gradle)
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_11
+    targetCompatibility = JavaVersion.VERSION_11
+    withJavadocJar()
+    withSourcesJar()
+}
+
+publishing.publications.register("mavenJava", MavenPublication::class) {
+    from(components["java"])
+}
+
+tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
+    kotlinOptions.jvmTarget = "11"
 }
 
 gradlePlugin {
