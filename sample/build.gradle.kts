@@ -5,21 +5,21 @@ plugins {
     with(catalogPlugins.plugins) {
         plugin(android.application)
         plugin(kotlin.android)
-        plugin(mersey.kotlin.convention)
-        plugin(mersey.android.convention)
+        plugin(mersey.kotlin.extension)
+        plugin(mersey.android.extension)
         plugin(swiftPackage)
     }
 }
 
 android {
-    compileSdk = 31
+    compileSdk = 33
     defaultConfig {
         minSdk = 21
-        targetSdk = 31
+        targetSdk = 33
     }
 }
 
-androidConvention {
+androidExtension {
     sourceSets {
         setSourceSets = true
 
@@ -32,7 +32,7 @@ androidConvention {
     debug = true
 }
 
-kotlinConvention {
+kotlinExtension {
     jvmTarget = JavaVersion.VERSION_11
 }
 

@@ -5,14 +5,11 @@ plugins {
     signing
 }
 
-group = Metadata.groupId
-version = Metadata.version
-
 publishing {
     publications.withType<MavenPublication>().all {
         pom {
             name.set("Mersey Gradle Plugins")
-            description.set("Optimization gradle convention plugins")
+            description.set("Optimization gradle extension plugins")
             url.set("https://github.com/Merseyside/mersey-gradle-plugin")
 
             licenses {

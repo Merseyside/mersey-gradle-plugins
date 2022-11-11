@@ -43,6 +43,9 @@ fun Project.isLocalAndroidDependencies(): Boolean =
 fun Project.isLocalKotlinExtLibrary(): Boolean =
     findTypedProperty("build.localKotlinExtLibrary")
 
+fun Project.isBuildIos(): Boolean =
+    findTypedProperty("build.buildIos")
+
 fun PluginDependenciesSpec.plugin(gradlePlugin: Provider<PluginDependency>): PluginDependencySpec {
     val spec = id(gradlePlugin.get().pluginId)
     val version = gradlePlugin.get().version.requiredVersion

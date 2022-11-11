@@ -1,13 +1,13 @@
 @Suppress("DSL_SCOPE_VIOLATION")
 plugins {
     alias(catalogPlugins.plugins.pluginPublish)
-    id("gradle-plugin-convention")
+    id("gradle-plugin-extension")
     id("maven-publish-config")
     id("nexus-config")
 }
 
-group = Metadata.groupId
-version = Metadata.version
+group = "io.github.merseyside"
+version = catalogPlugins.versions.merseyPlugins.get()
 
 dependencies {
     implementation(gradleKotlinDsl())
@@ -17,14 +17,14 @@ dependencies {
 
 gradlePlugin {
     plugins {
-        create("kotlin-convention") {
-            id = "${Metadata.groupId}.kotlin-convention"
-            implementationClass = "com.merseyside.gradle.plugin.KotlinConventionPlugin"
+        create("kotlin-extension") {
+            id = "${project.group}.kotlin-extension"
+            implementationClass = "com.merseyside.gradle.plugin.KotlinExtensionPlugin"
         }
 
-        create("android-convention") {
-            id = "${Metadata.groupId}.android-convention"
-            implementationClass = "com.merseyside.gradle.plugin.android.AndroidConventionPlugin"
+        create("android-extension") {
+            id = "${project.group}.android-extension"
+            implementationClass = "com.merseyside.gradle.plugin.android.AndroidExtensionPlugin"
         }
     }
 }
@@ -32,22 +32,22 @@ gradlePlugin {
 pluginBundle {
     website = "https://github.com/Merseyside/mersey-gradle-plugins"
     vcsUrl = "https://github.com/Merseyside/mersey-gradle-plugins"
-    description = "Plugin to optimize work with kotlin/android conventions and useful features"
+    description = "Plugin to optimize work with kotlin/android extensions and useful features"
     tags = listOf("android", "mersey", "kotlin", "sourceSets")
 
     plugins {
-        getByName("kotlin-convention") {
-            displayName = "Mersey kotlin convention plugin"
+        getByName("kotlin-extension") {
+            displayName = "Mersey kotlin extension plugin"
         }
 
-        getByName("android-convention") {
-            displayName = "Mersey android convention plugin"
+        getByName("android-extension") {
+            displayName = "Mersey android extension plugin"
         }
     }
 
     mavenCoordinates {
-        groupId = Metadata.groupId
+        groupId = project.group as String
         artifactId = project.name
-        version = Metadata.version
+        version = project.version as String
     }
 }

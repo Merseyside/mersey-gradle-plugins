@@ -6,6 +6,7 @@ pluginManagement {
         google()
         gradlePluginPortal()
     }
+
     includeBuild("build-logic")
     includeBuild("plugins")
 }
@@ -23,7 +24,7 @@ dependencyResolutionManagement {
     }
 
     val group = "io.github.merseyside"
-    val catalogVersions = "1.3.6"
+    val catalogVersions = "1.6.2"
     versionCatalogs {
         val androidLibs by creating {
             from("$group:catalog-version-android:$catalogVersions")
