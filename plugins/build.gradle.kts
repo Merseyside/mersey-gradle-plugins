@@ -36,20 +36,19 @@ gradlePlugin {
         create("kotlin-extension") {
             id = "${project.group}.kotlin-extension"
             implementationClass = "com.merseyside.gradle.plugin.KotlinExtensionPlugin"
+            tags.set(listOf("android", "mersey", "kotlin", "sourceSets"))
         }
 
         create("android-extension") {
             id = "${project.group}.android-extension"
             implementationClass = "com.merseyside.gradle.plugin.android.AndroidExtensionPlugin"
+            tags.set(listOf("android", "mersey", "kotlin", "sourceSets"))
         }
     }
-}
 
-pluginBundle {
-    website = "https://github.com/Merseyside/mersey-gradle-plugins"
-    vcsUrl = "https://github.com/Merseyside/mersey-gradle-plugins"
+    website.set("https://github.com/Merseyside/mersey-gradle-plugins")
+    vcsUrl.set("https://github.com/Merseyside/mersey-gradle-plugins")
     description = "Plugin to optimize work with kotlin/android extensions and useful features"
-    tags = listOf("android", "mersey", "kotlin", "sourceSets")
 
     plugins {
         getByName("kotlin-extension") {
@@ -61,9 +60,9 @@ pluginBundle {
         }
     }
 
-    mavenCoordinates {
-        groupId = project.group as String
-        artifactId = project.name
-        version = project.version as String
-    }
+//    mavenCoordinates {
+//        groupId = project.group as String
+//        artifactId = project.name
+//        version = project.version as String
+//    }
 }

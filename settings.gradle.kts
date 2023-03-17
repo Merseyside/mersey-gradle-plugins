@@ -30,6 +30,7 @@ dependencyResolutionManagement {
 
         val catalogPlugins by creating {
             from("$group:catalog-version-plugins:$catalogVersions")
+            version("pluginPublish", "1.1.0")
         }
     }
 }

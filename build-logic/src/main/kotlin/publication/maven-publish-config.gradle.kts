@@ -7,6 +7,7 @@ plugins {
 
 publishing {
     publications.withType<MavenPublication>().all {
+        artifactId = project.name
         pom {
             name.set("Mersey Gradle Plugins")
             description.set("Optimization gradle extension plugins")
