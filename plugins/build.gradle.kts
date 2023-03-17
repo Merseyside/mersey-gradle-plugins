@@ -37,18 +37,19 @@ gradlePlugin {
             id = "${project.group}.kotlin-extension"
             implementationClass = "com.merseyside.gradle.plugin.KotlinExtensionPlugin"
             tags.set(listOf("android", "mersey", "kotlin", "sourceSets"))
+            description = "Plugin to optimize work with kotlin/android extensions and useful features"
         }
 
         create("android-extension") {
             id = "${project.group}.android-extension"
             implementationClass = "com.merseyside.gradle.plugin.android.AndroidExtensionPlugin"
             tags.set(listOf("android", "mersey", "kotlin", "sourceSets"))
+            description = "Plugin to optimize work with kotlin/android extensions and useful features"
         }
     }
 
     website.set("https://github.com/Merseyside/mersey-gradle-plugins")
     vcsUrl.set("https://github.com/Merseyside/mersey-gradle-plugins")
-    description = "Plugin to optimize work with kotlin/android extensions and useful features"
 
     plugins {
         getByName("kotlin-extension") {
