@@ -21,7 +21,7 @@ android {
 
 androidExtension {
     sourceSets {
-        setSourceSets = true
+        //setSourceSets = true
 
         configureThemes {
             name = "Theme.App"
@@ -33,7 +33,7 @@ androidExtension {
 }
 
 kotlinExtension {
-    jvmTarget = JavaVersion.VERSION_11
+    jvmTarget = JavaVersion.VERSION_17
 }
 
 dependencies {

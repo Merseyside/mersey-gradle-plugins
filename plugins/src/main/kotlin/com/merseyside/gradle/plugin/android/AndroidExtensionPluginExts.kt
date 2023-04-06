@@ -5,7 +5,7 @@ import com.merseyside.gradle.defaultSourceSets
 import org.gradle.api.JavaVersion
 
 open class AndroidExtensionPluginExtension {
-    var javaVersion: JavaVersion = JavaVersion.VERSION_11
+    var javaVersion: JavaVersion = JavaVersion.VERSION_17
     var excludeMetadata: Boolean = false
     var excludeMetadataSet: MutableSet<String> = defaultMetadata
     internal val sourceSet: SourceSet = SourceSet()

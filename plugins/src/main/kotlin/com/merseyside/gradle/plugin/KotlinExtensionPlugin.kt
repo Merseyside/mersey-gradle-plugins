@@ -50,7 +50,7 @@ class KotlinExtensionPlugin : Plugin<Project> {
 }
 
 open class KotlinExtensionPluginExtension : LoggerExtension {
-    var jvmTarget: JavaVersion = JavaVersion.VERSION_11
+    var jvmTarget: JavaVersion = JavaVersion.VERSION_17
     var compilerArgs: List<String> = emptyList()
 
     fun setCompilerArgs(vararg args: String) {
