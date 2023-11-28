@@ -5,7 +5,7 @@ plugins {
 dependencies {
     with(catalogGradle) {
         implementation(kotlin.gradle)
-        implementation(android.gradle)
-        implementation(nexusPublish)
+        implementation(android.gradle.stable)
+        implementation(maven.publish.plugin)
     }
 }

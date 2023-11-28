@@ -1,10 +1,7 @@
-@Suppress("DSL_SCOPE_VIOLATION")
 plugins {
     alias(catalogPlugins.plugins.pluginPublish)
-    id("gradle-plugin-extension")
-    id("maven-publish-config")
-    id("nexus-config")
-    id("java-gradle-plugin")
+    `gradle-plugin-extension`
+    `maven-publish-plugin`
 }
 
 group = "io.github.merseyside"
@@ -14,21 +11,6 @@ dependencies {
     implementation(gradleKotlinDsl())
     compileOnly(catalogGradle.kotlin.gradle)
     compileOnly(catalogGradle.android.gradle)
-}
-
-java {
-    sourceCompatibility = JavaVersion.VERSION_17
-    targetCompatibility = JavaVersion.VERSION_17
-    withJavadocJar()
-    withSourcesJar()
-}
-
-publishing.publications.register("mavenJava", MavenPublication::class) {
-    from(components["java"])
-}
-
-tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
-    kotlinOptions.jvmTarget = "17"
 }
 
 gradlePlugin {

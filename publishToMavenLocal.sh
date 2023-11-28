@@ -1,1 +1,1 @@
-./gradlew -PlibraryPublish :plugins:publishToMavenLocal
+./gradlew :plugins:publishToMavenLocal

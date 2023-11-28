@@ -1,22 +1,13 @@
-pluginManagement {
-    repositories {
-        mavenCentral()
-        google()
-
-        gradlePluginPortal()
-    }
-}
-
 dependencyResolutionManagement {
     repositories {
-        mavenCentral()
         mavenLocal()
+        mavenCentral()
         google()
         gradlePluginPortal()
     }
 
     val group = "io.github.merseyside"
-    val catalogVersions = "1.6.8"
+    val catalogVersions = "1.7.9"
     versionCatalogs {
         val catalogGradle by creating {
             from("$group:catalog-version-gradle:$catalogVersions")

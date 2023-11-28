@@ -1,6 +1,5 @@
 import com.merseyside.gradle.plugin.android.Theme.*
 
-@Suppress("DSL_SCOPE_VIOLATION")
 plugins {
     with(catalogPlugins.plugins) {
         plugin(android.application)
@@ -12,10 +11,11 @@ plugins {
 }
 
 android {
-    compileSdk = 33
+    namespace = "io.github.merseyside"
+    compileSdk = 34
     defaultConfig {
         minSdk = 21
-        targetSdk = 33
+        targetSdk = 34
     }
 }
 
