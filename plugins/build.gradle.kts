@@ -5,7 +5,7 @@ plugins {
 }
 
 group = "io.github.merseyside"
-version = catalogPlugins.versions.mersey.plugins.get()
+version = catalogGradle.versions.mersey.plugins.get()
 
 dependencies {
     implementation(gradleKotlinDsl())
