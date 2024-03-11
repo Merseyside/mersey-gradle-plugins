@@ -16,7 +16,7 @@ inline fun <reified T> Project.findTypedProperty(propertyName: String): T {
 }
 
 inline fun <reified T> Project.findTypedLocalProperty(propertyName: String): T {
-    val stringProperty = gradleLocalProperties(rootDir)[propertyName] as? String
+    val stringProperty = gradleLocalProperties(rootDir, providers)[propertyName] as? String
 
     return stringProperty?.let {
         castProperty(it)
