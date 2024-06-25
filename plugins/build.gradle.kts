@@ -31,7 +31,7 @@ gradlePlugin {
     }
 
     website.set("https://github.com/Merseyside/mersey-gradle-plugins")
-    vcsUrl.set("https://github.com/Merseyside/mersey-gradle-plugins")
+    vcsUrl.set("https://github.com/merseyside/mersey-gradle-plugins")
 
     plugins {
         getByName("kotlin-extension") {
