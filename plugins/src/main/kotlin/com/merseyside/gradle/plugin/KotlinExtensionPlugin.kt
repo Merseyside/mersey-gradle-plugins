@@ -116,7 +116,7 @@ class KotlinExtensionPlugin : Plugin<Project> {
 }
 
 open class KotlinExtensionPluginExtension : LoggerExtension {
-    var jvmTarget: JavaVersion = JavaVersion.VERSION_17
+    var jvmTarget: JavaVersion = JavaVersion.VERSION_21
     var compilerArgs: List<String> = emptyList()
     var disableCrossCompilation: Boolean = true
 

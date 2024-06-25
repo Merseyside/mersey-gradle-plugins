@@ -19,7 +19,17 @@ android {
     }
 }
 
+kotlin {
+    jvmToolchain(21)
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_21
+    targetCompatibility = JavaVersion.VERSION_21
+}
+
 androidExtension {
+    javaVersion = JavaVersion.VERSION_21
     sourceSets {
         //setSourceSets = true
 
@@ -33,7 +43,7 @@ androidExtension {
 }
 
 kotlinExtension {
-    jvmTarget = JavaVersion.VERSION_17
+    jvmTarget = JavaVersion.VERSION_21
 }
 
 dependencies {

@@ -7,7 +7,7 @@ dependencyResolutionManagement {
     }
 
     val group = "io.github.merseyside"
-    val catalogVersions = "1.8.1"
+    val catalogVersions = "1.8.2"
     versionCatalogs {
         val catalogGradle by creating {
             from("$group:catalog-version-gradle:$catalogVersions")
